@@ -10,8 +10,8 @@ variables:
     value: $(USERNAME)
     readonly: true
   - name: NOKIA_PASSWORD
-    #value: $(PASSWORD)
-    #readonly: true
+    value: $(PASSWORD)
+    readonly: true
   - name: PLATO_PROJECT_NAME
     value: devops
     readonly: true
