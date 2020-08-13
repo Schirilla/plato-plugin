@@ -1,19 +1,19 @@
-variables:
+parameters:
   - name: PLATO_SERVER_URL    
-    value: "http://plato.dynamic.nsn-net.net"
+    type: string
+    default: "http://plato.dynamic.nsn-net.net"
   - name: NOKIA_USERNAME
-    value: $(USERNAME)
-    readonly: true
+    type: string
   - name: NOKIA_PASSWORD
-    value: $(PASSWORD)
-    readonly: true
+    type: string
   - name: PLATO_PROJECT_NAME
-    value: devops
-    readonly: true
+    type: string
   - name: PLATO_FILE_LOCATION
-    value: /tmp/file.xlsx
+    type: string
+    default: /tmp/file.xlsx
   - name: PLATO_LOGIN_TOKEN_LOCATION
-    value: /tmp/tokens.txt
+    type: string
+    default: /tmp/tokens.txt
     
 steps:
 
