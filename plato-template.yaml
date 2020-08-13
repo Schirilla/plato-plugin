@@ -10,10 +10,10 @@ parameters:
     type: string
   - name: PLATO_FILE_LOCATION
     type: string
-    default: /tmp/file.xlsx
+    default: "/tmp/file.xlsx"
   - name: PLATO_LOGIN_TOKEN_LOCATION
     type: string
-    default: /tmp/tokens.txt
+    default: "/tmp/tokens.txt"
     
 steps:
 
