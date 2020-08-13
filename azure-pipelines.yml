@@ -8,7 +8,7 @@ variables:
     value: $(PASSWORD)
     readonly: true
   - name: PLATO_PROJECT_NAME
-    value: devops
+    value: "devops"
     readonly: true
   - name: PLATO_FILE_LOCATION
     value: "/tmp/file.xlsx"
