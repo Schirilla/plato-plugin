@@ -41,7 +41,7 @@ steps:
     echo "Username: ${NOKIA_USERNAME}" 
     curl --noproxy "*" -H "Content-type: application/json" -X POST -s ${PLATO_SERVER_URL}/api/token/ -d "{ \"username\": \"${NOKIA_USERNAME}\" , \"password\": \"${NOKIA_PASSWORD}\" }"  > ${PLATO_LOGIN_TOKEN_LOCATION} && \
     export PLATO_ACCESS_TOKEN=`cat ${PLATO_LOGIN_TOKEN_LOCATION} | jq -r .access` && \
-    export PLATO_REFRESH_TOKEN=`cat ${PLATO_LOGIN_TOKEN_LOCATION} | jq -r .refresh` && \
+    export PLATO_REFRESH_TOKEN=`cat ${PLATO_LOGIN_TOKEN_LOCATION} | jq -r .refresh`
     
   displayName: 'Login to Plato'
 - script: |
