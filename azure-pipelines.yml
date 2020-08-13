@@ -45,7 +45,8 @@ steps:
     
   displayName: 'Login to Plato'
 - script: |
-     echo ${PLATO_ACCESS_TOKEN}
+     echo "Access Token: ${PLATO_ACCESS_TOKEN}"
+     echo "Plato Prject Name: ${PLATO_PROJECT_NAME}"
      export PLATO_PROJECT_ID=`curl --noproxy "*"  -H  "Authorization: Bearer ${PLATO_ACCESS_TOKEN}" ${PLATO_SERVER_URL}/api/v1/projects/  2>/dev/null | jq -r ".[] | select(.name == \"${PLATO_PROJECT_NAME}\")|.id"` && \
      export PLATO_HANDLING_TASK_ID=`curl --noproxy "*" -X POST -H "Authorization: Bearer ${PLATO_ACCESS_TOKEN}"  "${PLATO_SERVER_URL}/api/v1/blocks/44996040-2213-48d9-b2f4-b2da59f68012/virtual-form/?project_id=${PLATO_PROJECT_ID}" 2>/dev/null |jq -r '.handling_task'` && \
      sleep 2 &&\
