@@ -11,7 +11,7 @@ parameters:
   - name: PLATO_FILE_LOCATION
     type: string
     default: "/tmp/file.xlsx"
-  - name: PLATO_LOGIN_TOKEN_LOCATION
+  - name: PLATO_TOKEN_LOCATION
     type: string
     default: "/tmp/tokens.txt"
     
@@ -22,16 +22,16 @@ steps:
 # jq
  - script: |
     rm -Rf ${PLATO_FILE_LOCATION}
-    rm -Rf ${PLATO_LOGIN_TOKEN_LOCATION}
+    rm -Rf ${PLATO_TOKEN_LOCATION}
    displayName: 'Clean-up'
  - script: |
     echo "Try to login to Plato" 
     echo "URL : ${PLATO_SERVER_URL}"
     echo "Username: ${NOKIA_USERNAME}" 
-    echo "Token File Location: ${PLATO_LOGIN_TOKEN_LOCATION}"
-    curl --noproxy "*" -H "Content-type: application/json" -X POST -s ${PLATO_SERVER_URL}/api/token/ -d "{ \"username\": \"${NOKIA_USERNAME}\" , \"password\": \"${NOKIA_PASSWORD}\" }"  > ${PLATO_LOGIN_TOKEN_LOCATION} && \
-    export PLATO_ACCESS_TOKEN=`cat ${PLATO_LOGIN_TOKEN_LOCATION} | jq -r .access` && \
-    export PLATO_REFRESH_TOKEN=`cat ${PLATO_LOGIN_TOKEN_LOCATION} | jq -r .refresh`
+    echo "Token File Location: ${PLATO_TOKEN_LOCATION}"
+    curl --noproxy "*" -H "Content-type: application/json" -X POST -s ${PLATO_SERVER_URL}/api/token/ -d "{ \"username\": \"${NOKIA_USERNAME}\" , \"password\": \"${NOKIA_PASSWORD}\" }"  > ${PLATO_TOKEN_LOCATION} && \
+    export PLATO_ACCESS_TOKEN=`cat ${PLATO_TOKEN_LOCATION} | jq -r .access` && \
+    export PLATO_REFRESH_TOKEN=`cat ${PLATO_TOKEN_LOCATION} | jq -r .refresh`
     
    displayName: 'Login to Plato'
  - script: |
