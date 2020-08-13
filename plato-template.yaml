@@ -9,11 +9,9 @@ parameters:
   - name: PLATO_PROJECT_NAME
     type: string
   - name: PLATO_FILE_LOCATION
-    type: string
-    default: '/tmp/file.xlsx'
+    type: string    
   - name: PLATO_TOKEN_LOCATION
     type: string
-    default: '/tmp/tokens.txt'
     
 steps:
 
