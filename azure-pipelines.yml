@@ -10,6 +10,12 @@ variables:
   - name: PLATO_PROJECT_NAME
     value: devops
     readonly: true
+  - name: PLATO_FILE_LOCATION
+    value: "/tmp/file.xlsx"
+    readonly: true
+  - name: PLATO_TOKEN_LOCATION
+    value: "/tmp/tokens.txt"
+    readonly: true
 
 
 #trigger:
@@ -24,5 +30,5 @@ extends:
       NOKIA_USERNAME: $(NOKIA_USERNAME)
       NOKIA_PASSWORD: $(NOKIA_PASSWORD)
       PLATO_PROJECT_NAME: $(PLATO_PROJECT_NAME)
-      PLATO_FILE_LOCATION: "/tmp/file.xlsx"
-      PLATO_TOKEN_LOCATION: "/tmp/tokens.txt"
+      PLATO_FILE_LOCATION: $(PLATO_FILE_LOCATION)
+      PLATO_TOKEN_LOCATION: $(PLATO_TOKEN_LOCATION)
