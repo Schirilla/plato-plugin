@@ -12,8 +12,8 @@ variables:
     readonly: true
 
 
-trigger:
-- master
+#trigger:
+#- master
 
 pool:
   name: 'umut-linux'
