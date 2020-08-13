@@ -3,6 +3,16 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+variables:
+  - name: PLATO_SERVER_URL    
+    value: "http://plato.dynamic.nsn-net.net"
+  - name: NOKIA_USERNAME
+    value: $(USERNAME)
+    readonly: true
+  - name: NOKIA_PASSWORD
+    value: $(PASSWORD)
+    readonly: true
+
 trigger:
 - master
 
@@ -10,10 +20,13 @@ pool:
   name: 'umut-linux'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
 
+# Here the assumption is curl and jq is installed on agent machine
 - script: |
-    echo $(NOKIA_USERNAME)
-    echo $(NOKIA_PASSWORD)
-  displayName: 'Run a multi-line script'
+    echo "Try to login to Plato" 
+    echo "URL : ${PLATO_SERVER_URL}"
+    echo "Username: ${NOKIA_USERNAME}" 
+    curl --noproxy "*" -H "Content-type: application/json" -X POST -s ${PLATO_SERVER_URL}/api/token/ -d "{ \"username\": \"${NOKIA_USERNAME}\" , \"password\": \"${NOKIA_PASSWORD}\" }"  > /tmp/tokens.txt
+    
+
+  displayName: 'Login to Plato'
