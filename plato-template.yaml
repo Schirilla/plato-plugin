@@ -13,7 +13,7 @@ parameters:
     default: "/tmp/file.xlsx"
   - name: PLATO_TOKEN_LOCATION
     type: string
-    default: "/tmp/tokens.txt"
+    default: "tokens"
     
 steps:
 
