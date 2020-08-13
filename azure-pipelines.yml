@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'test'
+  name: 'umut-linux'
 
 steps:
 - script: echo Hello, world!
