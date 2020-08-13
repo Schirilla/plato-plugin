@@ -19,7 +19,7 @@ pool:
   name: 'umut-linux'
 
 extends:
-  template: plato-template.yml
+  template: plato-plugin/plato-template.yml
   parameters:      
       NOKIA_USERNAME: $(NOKIA_USERNAME)
       NOKIA_PASSWORD: $(NOKIA_PASSWORD)
