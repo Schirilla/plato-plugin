@@ -21,7 +21,9 @@ pool:
 extends:
   template: plato-template.yml
   parameters:      
-      test: true
+      NOKIA_USERNAME: {{ NOKIA_USERNAME }}
+      NOKIA_PASSWORD: {{ NOKIA_PASSWORD }}
+      PLATO_PROJECT_NAME: {{ PLATO_PROJECT_NAME }}
 
 
     
