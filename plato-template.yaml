@@ -1,0 +1,44 @@
+variables:
+  - name: PLATO_SERVER_URL    
+    value: "http://plato.dynamic.nsn-net.net"
+  - name: NOKIA_USERNAME
+    value: $(USERNAME)
+    readonly: true
+  - name: NOKIA_PASSWORD
+    value: $(PASSWORD)
+    readonly: true
+  - name: PLATO_PROJECT_NAME
+    value: devops
+    readonly: true
+  - name: PLATO_FILE_LOCATION
+    value: /tmp/file.xlsx
+  - name: PLATO_LOGIN_TOKEN_LOCATION
+    value: /tmp/tokens.txt
+    
+steps:
+
+# Here the assumption is agent is Linux and following packages are installed
+# curl
+# jq
+- script: |
+    rm -Rf ${PLATO_FILE_LOCATION}
+    rm -Rf ${PLATO_LOGIN_TOKEN_LOCATION}
+  displayName: 'Clean-up'
+- script: |
+    echo "Try to login to Plato" 
+    echo "URL : ${PLATO_SERVER_URL}"
+    echo "Username: ${NOKIA_USERNAME}" 
+    curl --noproxy "*" -H "Content-type: application/json" -X POST -s ${PLATO_SERVER_URL}/api/token/ -d "{ \"username\": \"${NOKIA_USERNAME}\" , \"password\": \"${NOKIA_PASSWORD}\" }"  > ${PLATO_LOGIN_TOKEN_LOCATION} && \
+    export PLATO_ACCESS_TOKEN=`cat ${PLATO_LOGIN_TOKEN_LOCATION} | jq -r .access` && \
+    export PLATO_REFRESH_TOKEN=`cat ${PLATO_LOGIN_TOKEN_LOCATION} | jq -r .refresh`
+    
+  displayName: 'Login to Plato'
+- script: |
+     echo "Access Token: ${PLATO_ACCESS_TOKEN}"
+     echo "Plato Prject Name: ${PLATO_PROJECT_NAME}"
+     export PLATO_PROJECT_ID=`curl --noproxy "*"  -H  "Authorization: Bearer ${PLATO_ACCESS_TOKEN}" ${PLATO_SERVER_URL}/api/v1/projects/  2>/dev/null | jq -r ".[] | select(.name == \"${PLATO_PROJECT_NAME}\")|.id"` && \
+     export PLATO_HANDLING_TASK_ID=`curl --noproxy "*" -X POST -H "Authorization: Bearer ${PLATO_ACCESS_TOKEN}"  "${PLATO_SERVER_URL}/api/v1/blocks/44996040-2213-48d9-b2f4-b2da59f68012/virtual-form/?project_id=${PLATO_PROJECT_ID}" 2>/dev/null |jq -r '.handling_task'` && \
+     sleep 2 &&\
+     export PLATO_FILE_PATH=`curl --noproxy "*" -v -H "Authorization: Bearer ${PLATO_ACCESS_TOKEN}"  "${PLATO_SERVER_URL}/api/v1/tasks/${PLATO_HANDLING_TASK_ID}/" 2>/dev/null |jq -r '.public_files[1]'` && \
+     curl --noproxy "*"  -H "Authorization: Bearer ${PLATO_ACCESS_TOKEN}"  "${PLATO_SERVER_URL}${PLATO_FILE_PATH}" -o ${PLATO_FILE_LOCATION} 2>/dev/null 
+  displayName: 'Download Excel from Plato'
