@@ -19,6 +19,9 @@ steps:
 # curl
 # jq
  - script: |
+    echo "Deleting Files ..."
+    echo "Token File Location: ${PLATO_TOKEN_LOCATION}"
+    echo "File Download Location: ${PLATO_FILE_LOCATION}"
     rm -Rf ${PLATO_FILE_LOCATION}
     rm -Rf ${PLATO_TOKEN_LOCATION}
    displayName: 'Clean-up'
