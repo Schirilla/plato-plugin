@@ -24,8 +24,5 @@ extends:
       NOKIA_USERNAME: $(NOKIA_USERNAME)
       NOKIA_PASSWORD: $(NOKIA_PASSWORD)
       PLATO_PROJECT_NAME: $(PLATO_PROJECT_NAME)
-      PLATO_FILE_LOCATION: '/tmp/file.xlsx'
-      PLATO_TOKEN_LOCATION: '/tmp/tokens.txt'
-
-
-    
+      PLATO_FILE_LOCATION: "/tmp/file.xlsx"
+      PLATO_TOKEN_LOCATION: "/tmp/tokens.txt"
